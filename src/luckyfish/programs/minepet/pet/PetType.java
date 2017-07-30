@@ -1,0 +1,56 @@
+package luckyfish.programs.minepet.pet;
+
+/**
+ * The type of pet
+ */
+public enum PetType {
+	HUMAN,
+
+
+	ZOMBIE,
+	SKELETON,
+	CREEPER,
+	ZOMBIE_VILLAGER,
+	WITCH,
+	ENDERMAN,
+	SPIDER,
+	CAVE_SPIDER,
+	GUARDIAN,
+	ELDER_GUARDIAN,
+	PIG_ZOMBIE,
+	VINDICATOR,
+	EVOKER,
+	SLIVERFISH,
+	ENDERMITE,
+
+	SLIME,
+	MAGMA_CUBE,
+
+	GHAST,
+	VEX,
+
+	SHULKER,
+
+
+	BAT,
+
+	CHICKEN,
+
+	COW,
+	PIG,
+	SHEEP,
+	POLAR_BEAR,
+	WOLF,
+	VILLAGER,
+
+
+	SNOWMAN,
+	IRON_GOLEM;
+
+	public enum PetAttribute {
+		FLYABLE,
+		SLOWLY_FALL,
+		ONLY_JUMP,
+		FAST_CLIMB_WALL
+	}
+}
