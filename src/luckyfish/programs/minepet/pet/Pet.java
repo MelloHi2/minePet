@@ -3,8 +3,7 @@ package luckyfish.programs.minepet.pet;
 import luckyfish.programs.minepet.utils.Location2D;
 
 /**
- * The core of pet
- * manages pet's engine, AI systems and animations
+ * 宠物
  */
 public interface Pet {
 	Location2D getLocation();

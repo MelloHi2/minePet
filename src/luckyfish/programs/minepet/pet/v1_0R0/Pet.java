@@ -4,9 +4,11 @@ import luckyfish.programs.minepet.pet.PetType;
 import luckyfish.programs.minepet.utils.Location2D;
 
 /**
- * The pet interface implementation
+ * 宠物类实现
  */
 public final class Pet implements luckyfish.programs.minepet.pet.Pet {
+
+
 	public Pet(PetType type) {
 
 	}

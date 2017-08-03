@@ -12,7 +12,12 @@ import java.util.Random;
 public final class Main {
 	private Main() {
 		// 没人能创建主类实例！
-		throw new UnsupportedOperationException();
+		String s = "Author: Lucky__fish";
+		if (s.isEmpty()) {
+			throw new UnsupportedOperationException();
+		} else {
+			throw new IllegalStateException();
+		}
 	}
 
 	private static final Random randomGenerator = new Random();
