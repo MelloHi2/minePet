@@ -69,4 +69,12 @@ public final class GLFWWindow {
 		checkState(true);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, type.getGlfwOpenGLProfile());
 	}
+
+	@Override
+	protected void finalize() {
+		if (windowHandle != NULL) {
+			glfwDestroyWindow(windowHandle);
+		}
+		glfwTerminate();
+	}
 }

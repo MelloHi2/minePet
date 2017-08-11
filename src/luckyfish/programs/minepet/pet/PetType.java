@@ -11,9 +11,9 @@ public enum PetType {
 	CREEPER,                                                // 苦力怕
 	ZOMBIE_VILLAGER,                                        // 僵尸村民
 	WITCH,                                                  // 女巫
-	ENDERMAN,                                               // 末影人
-	SPIDER(PetAttribute.FAST_CLIMB_WALL),                   // 蜘蛛
-	CAVE_SPIDER(PetAttribute.FAST_CLIMB_WALL),              // 洞穴蜘蛛
+	ENDERMAN,                                                 // 末影人
+	SPIDER(PetAttribute.FAST_CLIMB_WALL),                     // 蜘蛛
+	CAVE_SPIDER(PetAttribute.FAST_CLIMB_WALL),                // 洞穴蜘蛛
 	GUARDIAN(PetAttribute.ONLY_JUMP),                       // 守卫者
 	ELDER_GUARDIAN(PetAttribute.ONLY_JUMP),                 // 远古守卫者
 	PIG_ZOMBIE,                                             // 僵尸猪人

@@ -1,4 +1,4 @@
 package luckyfish.programs.minepet.pet;
 
-// The pet on the desktop!
-// The core of this program
+// 桌面上的宠物
+// 对于一个桌宠来说这个包很重要的吧=w=

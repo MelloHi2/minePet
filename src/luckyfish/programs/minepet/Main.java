@@ -12,7 +12,7 @@ import java.util.Random;
 public final class Main {
 	private Main() {
 		// 没人能创建主类实例！
-		String s = "Author: Lucky__fish";
+		String s = "Author: Lucky__fish, Created at 2017/07/22";
 		if (s.isEmpty()) {
 			throw new UnsupportedOperationException();
 		} else {
