@@ -32,9 +32,11 @@ public class CrashReport implements Serializable {
 
 
 		builder.append("// ").append(description).append(System.getProperty("line.separator"));
-		builder.append(cause.getMessage()).append(System.getProperty("line.separator"));
+		builder.append(System.getProperty("line.separator"));
 
 		CrashReportThrowableStackTraceWriter writer = CrashReportThrowableStackTraceWriter.getStackTraceWriter();
+		cause.printStackTrace(writer);
+
 		builder.append(writer.toString()).append(System.getProperty("line.separator"));
 
 		builder.append(System.getProperty("line.separator"));

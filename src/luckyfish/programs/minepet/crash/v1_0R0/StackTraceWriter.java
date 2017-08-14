@@ -7,7 +7,7 @@ import java.io.*;
 /**
  * 写入器实现
  */
-public class StackTraceWriter extends PrintWriter implements CrashReportThrowableStackTraceWriter {
+public class StackTraceWriter extends CrashReportThrowableStackTraceWriter {
 	private static final WriterCheater cheater = new WriterCheater();
 	public StackTraceWriter() {
 		super(cheater);

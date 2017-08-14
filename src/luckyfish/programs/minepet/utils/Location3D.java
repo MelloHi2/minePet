@@ -1,7 +1,5 @@
 package luckyfish.programs.minepet.utils;
 
-import org.joml.Vector3f;
-
 /**
  * 三维位置
  */
@@ -40,8 +38,8 @@ public final class Location3D implements Cloneable {
 		this.z = z;
 	}
 
-	public final Vector3f toVector() {
-		return new Vector3f(x, y, z);
+	public final Vector3D toVector() {
+		return new Vector3D(x, y, z);
 	}
 	public final float distance(Location3D anotherLocation) {
 		return (float)Math.sqrt(Math.pow(this.x - anotherLocation.x, 2) + Math.pow(this.y - anotherLocation.y, 2) + Math.pow(this.z - anotherLocation.z, 2));

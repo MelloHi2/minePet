@@ -4,14 +4,17 @@ import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initia
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.utils.GLFWContextProfileType;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.utils.GLFWWindowsInitInfo;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.opengl.GLCapabilities;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * 宠物渲染窗口
  */
 public final class GLFWWindow {
+	private final GLCapabilities glCapabilities;
 	private long windowHandle;
 
 	public GLFWWindow(GLFWInitializer initializer) {
@@ -21,19 +24,26 @@ public final class GLFWWindow {
 		if (!glfwInit()) {
 			throw new IllegalStateException("We cannot initialize the GLFW library");
 		}
+		glfwDefaultWindowHints();
 		GLFWWindowsInitInfo initInfo = initializer.init(this);
 
 		windowHandle = glfwCreateWindow(initInfo.getWidth(), initInfo.getHeight(), this.hashCode() + "", NULL, NULL);
 		if (windowHandle == NULL) {
 			throw new IllegalStateException("We cannot create the window");
 		}
+		glfwMakeContextCurrent(windowHandle);
+		glCapabilities = createCapabilities();
 
 		initializer.postInit(this);
 		glfwSwapInterval(1);
 	}
 
 	private void checkState(boolean mustBeforeInit) {
-		assert mustBeforeInit ? windowHandle == NULL : windowHandle != NULL;
+		if (mustBeforeInit && windowHandle != NULL) {
+			throw new AssertionError();
+		} else if (!mustBeforeInit && windowHandle == NULL) {
+			throw new AssertionError();
+		}
 	}
 
 	public void setResizable(boolean resizable) {
@@ -54,7 +64,7 @@ public final class GLFWWindow {
 		}
 	}
 
-	public void swapBufferAndPollEvents() {
+	public void update() {
 		glfwSwapBuffers(windowHandle);
 		glfwPollEvents();
 	}
@@ -70,11 +80,20 @@ public final class GLFWWindow {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, type.getGlfwOpenGLProfile());
 	}
 
+	public boolean isWindowShouldClose() {
+		checkState(false);
+		return glfwWindowShouldClose(windowHandle);
+	}
+
 	@Override
 	protected void finalize() {
 		if (windowHandle != NULL) {
 			glfwDestroyWindow(windowHandle);
 		}
 		glfwTerminate();
+	}
+
+	GLCapabilities getGlCapabilities() {
+		return glCapabilities;
 	}
 }

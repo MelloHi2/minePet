@@ -14,7 +14,7 @@ public class CrashReportWriter {
 
 	public CrashReportWriter() throws IOException {
 		Calendar calendar = Calendar.getInstance();
-		writer = new BufferedWriter(new FileWriter(String.format("%d-%d-%d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))));
+		writer = new BufferedWriter(new FileWriter(String.format("crash-%d-%d-%d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))));
 	}
 
 	public void write(CrashReport report) throws IOException {

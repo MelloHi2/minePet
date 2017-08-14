@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 /**
  * 欺骗java的玩意
- * 这些东西也真是麻烦死了。。。
+ * 这些东西也真是麻烦死了>_<
  */
 public class WriterCheater extends Writer {
 	private LinkedList<Integer> ints = new LinkedList<>();
