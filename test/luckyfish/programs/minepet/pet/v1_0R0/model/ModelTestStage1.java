@@ -57,7 +57,7 @@ public class ModelTestStage1 {
 			}
 		});
 
-		modelBox = new ModelBox(new Vector3D(1, 1, 1), new Location3D(0, 0.5f, 0), "./assets/textures/alex.png", openGLInterface);
+		modelBox = new ModelBox(new Vector3D(1, 1, 1), new Location3D(0, 0.5f, 0), "./assets/textures/eternal_fish.png", openGLInterface);
 	}
 
 	@Test
@@ -78,6 +78,7 @@ public class ModelTestStage1 {
 				public void render() {
 					modelBox.draw();
 					modelBox.setRotation(new Vector3D(finalI, finalI, 0));
+//					modelBox.setLocation(new Location3D(0, 0, -finalI));
 				}
 
 				@Override

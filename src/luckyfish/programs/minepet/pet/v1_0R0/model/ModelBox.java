@@ -10,68 +10,78 @@ import java.io.IOException;
 
 /**
  * 方块模型
- * 会拿来捏人的
+ * 拿来捏人的
  */
 public class ModelBox {
-	private static final float[] vertices = {
-			// V0
-			-0.5f, 0.5f, 0.5f,
+	private static final float[] vertices = new float[]{
+			// VO
+			-0.5f,  0.5f,  -0.5f,
 			// V1
-			-0.5f, -0.5f, 0.5f,
+			-0.5f, -0.5f,  -0.5f,
 			// V2
-			0.5f, -0.5f, 0.5f,
+			0.5f, -0.5f,  -0.5f,
 			// V3
-			0.5f, 0.5f, 0.5f,
+			0.5f,  0.5f,  -0.5f,
 			// V4
-			-0.5f, 0.5f, -0.5f,
+			-0.5f,  0.5f, 0.5f,
 			// V5
-			-0.5f, -0.5f, -0.5f,
+			0.5f,  0.5f, 0.5f,
 			// V6
-			0.5f, -0.5f, -0.5f,
+			-0.5f, -0.5f, 0.5f,
 			// V7
-			0.5f, 0.5f, -0.5f,
+			0.5f, -0.5f, 0.5f,
 
-			// For text coords in top face
-			// V8: V4 repeated
+			// top face
+			// v8
+			-0.5f, 0.5f, 0.5f,
+			// v9
 			-0.5f, 0.5f, -0.5f,
-			// V9: V5 repeated
-			-0.5f, 0.5f, 0.5f,
-			// V10: V0 repeated
-			0.5f, 0.5f, 0.5f,
-			// V11: V3 repeated
+			// v10
 			0.5f, 0.5f, -0.5f,
-
-			// For text coords in right face
-			// V12: V3 repeated
+			// v11
 			0.5f, 0.5f, 0.5f,
-			// V13: V2 repeated
-			0.5f, -0.5f, 0.5f,
-			// V14
-			0.5f, -0.5f, -0.5f,
-			// V15
+
+			// right face
+			// v12
 			0.5f, 0.5f, -0.5f,
-
-			// For text coords in left face
-			// V16: V0 repeated
-			-0.5f, 0.5f, 0.5f,
-			// V17: V1 repeated
-			-0.5f, -0.5f, 0.5f,
-			// V18
-			-0.5f, -0.5f, -0.5f,
-			// V19
-			-0.5f, 0.5f, -0.5f
-
-			// For text coords in bottom face
-			// V20: V6 repeated
-			-0.5f, -0.5f, -0.5f,
-			// V21: V7 repeated
-			-0.5f, -0.5f, 0.5f,
-			// V22: V1 repeated
-			0.5f, -0.5f, 0.5f,
-			// V23: V2 repeated
+			// v13
 			0.5f, -0.5f, -0.5f,
+			// v14
+			0.5f, -0.5f, 0.5f,
+			// v15
+			0.5f, 0.5f, 0.5f,
+
+			// left face
+			// v16
+			-0.5f, 0.5f, 0.5f,
+			// v17
+			-0.5f, -0.5f, 0.5f,
+			// v18
+			-0.5f, -0.5f, -0.5f,
+			// v19
+			-0.5f, 0.5f, -0.5f,
+
+			// bottom face
+			// v20
+			-0.5f, -0.5f, 0.5f,
+			// v21
+			-0.5f, -0.5f, -0.5f,
+			// v22
+			0.5f, -0.5f, -0.5f,
+			// v23
+			0.5f, -0.5f, 0.5f,
+
+			// back face
+			// V24
+			-0.5f,  0.5f,  0.5f,
+			// V25
+			-0.5f, -0.5f,  0.5f,
+			// V26
+			0.5f, -0.5f,  0.5f,
+			// V27
+			0.5f,  0.5f,  0.5f,
 	};
-	private static final int[] indices = {
+	private static final int[] indices = new int[]{
 			// Front face
 			0, 1, 3, 3, 1, 2,
 			// Top Face
@@ -83,7 +93,7 @@ public class ModelBox {
 			// Bottom face
 			20, 21, 23, 23, 21, 22,
 			// Back face
-			4, 5, 7, 7, 5, 6
+			24, 25, 27, 27, 25, 26,
 	};
 
 	private Location3D location;
@@ -91,9 +101,9 @@ public class ModelBox {
 	private OpenGLInterface openGLInterface;
 
 	public ModelBox(Vector3D size, Location3D location, String textureLocation, OpenGLInterface openGLInterface) throws IOException {
-		float[] currentVertex = new float[24];
-		System.arraycopy(vertices, 0, currentVertex, 0, 24);
-		for (int i = 0;i < 8;i ++) {
+		float[] currentVertex = new float[vertices.length];
+		System.arraycopy(vertices, 0, currentVertex, 0, vertices.length);
+		for (int i = 0;i < 28;i ++) {
 			currentVertex[i * 3] *= size.x;
 			currentVertex[i * 3 + 1] *= size.y;
 			currentVertex[i * 3 + 2] *= size.z;
@@ -155,7 +165,15 @@ public class ModelBox {
 				16f / 64f, 0f / 64f,
 				16f / 64f, 8f / 64f,
 				24f / 64f, 8f / 64f,
-				24f / 64f, 0f / 64f
+				24f / 64f, 0f / 64f,
+				// V4
+				24.0f / 64.0f, 8.0f / 64.0f,
+				// V5
+				24.0f / 64.0f, 16.0f / 64.0f,
+				// V6
+				32.0f / 64.0f, 16.0f / 64.0f,
+				// V7
+				32.0f / 64.0f, 8.0f / 64.0f,
 		}, texture, openGLInterface);
 
 		mesh.setLocation(location);
@@ -177,7 +195,7 @@ public class ModelBox {
 		mesh.setLocation(location);
 	}
 	public void setRotation(Vector3D rotation) {
-		rotation.add(0, 180, 0);
+		rotation.add(0, 0, 0);
 		mesh.setRotation(rotation);
 	}
 }

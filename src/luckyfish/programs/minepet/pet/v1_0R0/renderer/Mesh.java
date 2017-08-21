@@ -36,7 +36,7 @@ public final class Mesh {
 		IBO = new IndexBufferObject(openGLInterface);
 		this.texture = texture;
 
-		vertexAmount = indices.length;
+		vertexAmount = vertices.length;
 
 		arrays.bind();
 
@@ -51,14 +51,14 @@ public final class Mesh {
 	}
 
 	public void draw() {
+		texture.bind();
 		arrays.bind();
 
-		texture.bind();
 		textureVertexBufferObject.bind();
 		VBO.bind();
 		IBO.bind();
 
-//		Shader.Uniform projectionMatrix;
+		Shader.Uniform projectionMatrix;
 		Shader.Uniform worldMatrix;
 		try {
 //			projectionMatrix = openGLInterface.getShader().getUniform("projectionMatrix");
@@ -80,9 +80,10 @@ public final class Mesh {
 		IBO.unbind();
 		VBO.unbind();
 		textureVertexBufferObject.unbind();
-		texture.unbind();
 
 		arrays.unbind();
+		texture.unbind();
+
 	}
 
 	public void setLocation(Location3D location) {
@@ -121,7 +122,7 @@ public final class Mesh {
 //			return projectionMatrix;
 //		}
 
-		public Matrix4f getWorldMatrix(Vector3f offset, Vector3f rotation, float scale) {
+		Matrix4f getWorldMatrix(Vector3f offset, Vector3f rotation, float scale) {
 			worldMatrix.identity().translate(offset).
 					rotateX((float)Math.toRadians(rotation.x)).
 					rotateY((float)Math.toRadians(rotation.y)).
