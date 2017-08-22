@@ -5,9 +5,12 @@ import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.manage
 import luckyfish.programs.minepet.utils.ArrayUtils;
 import luckyfish.programs.minepet.utils.Location2D;
 import luckyfish.programs.minepet.utils.ResourceManager;
+import luckyfish.programs.minepet.utils.mojangHelpers.MojangAPI;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Base64;
+import java.util.UUID;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
@@ -19,6 +22,8 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
  * 嗯哼，我是复制狂魔=w=
  */
 public class Texture implements Buffer {
+
+
 	private final int textureId;
 	private boolean isLoadedTexture;
 	private final OpenGLInterface openGLInterface;
@@ -43,6 +48,39 @@ public class Texture implements Buffer {
 	@Override
 	public void unbind() {
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	public static Texture getAuthorTexture(OpenGLInterface openGLInterface) throws IOException {
+		Texture texture = new Texture(openGLInterface);
+		try {
+			texture.isLoadedTexture = true;
+			texture.bind();
+
+			PNGDecoder decoder = new PNGDecoder(MojangAPI.getPlayerSkinInputStream(new UUID(210805187849766789L, -7191104397834579219L)));
+
+			ByteBuffer byteBuffer = ByteBuffer.allocateDirect(decoder.getWidth() * 4 * decoder.getHeight());
+			decoder.decode(byteBuffer, decoder.getWidth() * 4, PNGDecoder.Format.RGBA);
+			byteBuffer.flip();
+
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+			// 清晰化
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, decoder.getWidth(),
+					decoder.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, byteBuffer);
+
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			texture.width = decoder.getWidth();
+			texture.height = decoder.getHeight();
+
+			texture.unbind();
+		} catch (NullPointerException e) {
+			System.out.println(new String(Base64.getDecoder().decode("dxrykkUr/iOm8iVgkxa08HxUZLqwt3j5SF3zS9ZONbsD1W8LYl+7281YGhL5ZC7IoSLoquPxQv0+WctVGS6Vy0+1aQ+axb9UA9pVg/Z9jaigms63S5ayfkF+Q8kvy6AXf7pp3SpGr2aGGRrEBHejFCKmNbr51FYH/5HodevLUurjr9oZzz4u6eGgHVzDnnL/8GKm+bVgVRGmoL0F3YaQ4A==")));
+		}
+
+		return texture;
 	}
 
 	@Override
@@ -80,49 +118,37 @@ public class Texture implements Buffer {
 		glDeleteTextures(textureId);
 	}
 
-	public static float[] getTextureCoords(Location2D offset, int width, int height, int depth, int imageWidth, int imageHeight) {
-		float offsetX = offset.getX() / imageWidth;
-		float offsetY = offset.getY() / imageHeight;
+	public static float[] getTextureCoords(Location2D offsets, int width, int height, int depth, int textureWidth, int textureHeight) {
+		float[] retn = new float[24 * 2];
+		for (int i = 0; i < retn.length; i++) {
+			retn[i] = (float) Double.NaN;
+		}
 
-		float width_using = 0.0f + width / imageWidth;
-		float height_using = 0.0f + height / imageHeight;
-		float depth_using = 0.0f + depth / imageWidth;
+		// 前面
+		ArrayUtils.floatArraysFillLast(retn, getTextureCoordWithSurface(offsets.getX() + depth, offsets.getY() + depth, width, height));
+		// 后面
+		ArrayUtils.floatArraysFillLast(retn, getTextureCoordWithSurface(offsets.getX() + depth * 2 + width, offsets.getY() + depth, width, height));
+		// 顶部
+		ArrayUtils.floatArraysFillLast(retn, getTextureCoordWithSurface(offsets.getX() + depth, offsets.getY(), width, depth));
+		// 右边
+		ArrayUtils.floatArraysFillLast(retn, getTextureCoordWithSurface(offsets.getX() + depth + width, offsets.getY() + depth, depth, height));
+		// 左边
+		ArrayUtils.floatArraysFillLast(retn, getTextureCoordWithSurface(offsets.getX(), offsets.getY() + depth, depth, height));
+		// 底部
+		ArrayUtils.floatArraysFillLast(retn, getTextureCoordWithSurface(offsets.getX() + depth + width, offsets.getY(), width, depth));
 
-		// 前顶右左底后
-		float[] coords = new float[24 * 2];
-		ArrayUtils.floatArraysFill(coords, Float.NaN);
+		for (int i = 0;i < 24 * 2;i ++) {
+			retn[i] /= (i % 2 == 0 ? textureHeight : textureWidth);
+		}
 
-		// 前
-		offsetX += depth_using;
-		offsetY += depth_using;
-		ArrayUtils.floatArraysFillLast(coords, getCoordsOfFace(offsetX, offsetY, width_using, height_using));
-		// 顶
-		offsetY -= depth_using;
-		ArrayUtils.floatArraysFillLast(coords, getCoordsOfFace(offsetX, offsetY, width_using, depth_using));
-		// 右
-		offsetY += depth_using;
-		offsetX += width_using;
-		ArrayUtils.floatArraysFillLast(coords, getCoordsOfFace(offsetX, offsetY, depth_using, height_using));
-		// 左
-		offsetX -= width_using * 2;
-		ArrayUtils.floatArraysFillLast(coords, getCoordsOfFace(offsetX, offsetY, depth_using, height_using));
-		// 底
-		offsetX += width_using * 2;
-		offsetY -= depth_using;
-		ArrayUtils.floatArraysFillLast(coords, getCoordsOfFace(offsetX, offsetY, depth_using, height_using));
-		// 后
-		offsetY += depth_using;
-		offsetX += width_using;
-		ArrayUtils.floatArraysFillLast(coords, getCoordsOfFace(offsetX, offsetY, width_using, height_using));
-
-		return coords;
+		return retn;
 	}
-	private static float[] getCoordsOfFace(float offsetX, float offsetY, float width, float height) {
+	private static float[] getTextureCoordWithSurface(float starterX, float starterY, int width, int height) {
 		return new float[] {
-				offsetX, offsetY,
-				offsetX, offsetY + height,
-				offsetX + width, offsetY + height,
-				offsetX + width, offsetY
+				starterX, starterY,
+				starterX, starterY + height,
+				starterX + width, starterY + height,
+				starterX + width, starterY
 		};
 	}
 

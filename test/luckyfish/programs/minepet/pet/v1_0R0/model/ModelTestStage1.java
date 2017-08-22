@@ -1,11 +1,13 @@
 package luckyfish.programs.minepet.pet.v1_0R0.model;
 
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers.Texture;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initializers.Renderer;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.GLFWWindow;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.Shader;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.utils.GLFWContextProfileType;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.utils.GLFWWindowsInitInfo;
+import luckyfish.programs.minepet.utils.Location2D;
 import luckyfish.programs.minepet.utils.Location3D;
 import luckyfish.programs.minepet.utils.ResourceManager;
 import luckyfish.programs.minepet.utils.Vector3D;
@@ -20,7 +22,9 @@ import java.awt.*;
 public class ModelTestStage1 {
 	private GLFWWindow window;
 	private OpenGLInterface openGLInterface;
-	private ModelBox modelBox;
+
+	private ModelBox head;
+	private ModelBox headwear;
 	@Before
 	public void setUp() throws Exception {
 		window = new GLFWWindow(w -> {
@@ -56,8 +60,12 @@ public class ModelTestStage1 {
 				e.printStackTrace();
 			}
 		});
+		Texture texture = Texture.getAuthorTexture(openGLInterface);
 
-		modelBox = new ModelBox(new Vector3D(1, 1, 1), new Location3D(0, 0.5f, 0), "./assets/textures/eternal_fish.png", openGLInterface);
+		head = new ModelBox(new Vector3D(8, 8, 8), new Location3D(0, 0f, 0), texture, new Vector3D(8, 8, 8), new Location2D(0, 0), openGLInterface);
+		headwear = new ModelBox(new Vector3D(9, 9, 9), new Location3D(0, 0, 0), texture, new Vector3D(8, 8, 8), new Location2D(32, 0), openGLInterface);
+		headwear.setUseAlpha(true);
+		head.addChild(headwear);
 	}
 
 	@Test
@@ -76,9 +84,10 @@ public class ModelTestStage1 {
 
 				@Override
 				public void render() {
-					modelBox.draw();
-					modelBox.setRotation(new Vector3D(finalI, finalI, 0));
-//					modelBox.setLocation(new Location3D(0, 0, -finalI));
+					head.draw();
+					headwear.draw();
+					head.setRotation(new Vector3D(-45, 30, 0));
+
 				}
 
 				@Override

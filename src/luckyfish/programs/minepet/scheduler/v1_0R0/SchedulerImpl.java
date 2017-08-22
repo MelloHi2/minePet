@@ -135,7 +135,7 @@ public final class SchedulerImpl implements Scheduler, Runnable {
 		}
 		final int getSkippedTick() {
 			int skippedTick = this.skippedTick;
-			this.skippedTick = 0;
+			this.skippedTick --;
 			return skippedTick;
 		}
 	}
