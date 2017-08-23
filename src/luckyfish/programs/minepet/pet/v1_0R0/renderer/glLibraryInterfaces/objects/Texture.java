@@ -1,4 +1,4 @@
-package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers;
+package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
@@ -6,6 +6,8 @@ import luckyfish.programs.minepet.utils.ArrayUtils;
 import luckyfish.programs.minepet.utils.Location2D;
 import luckyfish.programs.minepet.utils.ResourceManager;
 import luckyfish.programs.minepet.utils.mojangHelpers.MojangAPI;
+import luckyfish.programs.minepet.utils.mojangHelpers.exceptions.InvalidCredentialsException;
+import luckyfish.programs.minepet.utils.mojangHelpers.exceptions.TooManyRequestsException;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -21,7 +23,7 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
  * 部分代码来自于https://github.com/lwjglgamedev/lwjglbook/blob/master
  * 嗯哼，我是复制狂魔=w=
  */
-public class Texture implements Buffer {
+public class Texture implements Object {
 
 
 	private final int textureId;
@@ -56,7 +58,12 @@ public class Texture implements Buffer {
 			texture.isLoadedTexture = true;
 			texture.bind();
 
-			PNGDecoder decoder = new PNGDecoder(MojangAPI.getPlayerSkinInputStream(new UUID(210805187849766789L, -7191104397834579219L)));
+			PNGDecoder decoder;
+			try {
+				decoder = new PNGDecoder(MojangAPI.getPlayerSkinInputStream(new UUID(210805187849766789L, -7191104397834579219L)));
+			} catch (InvalidCredentialsException | TooManyRequestsException e) {
+				decoder = new PNGDecoder(ResourceManager.getFileResource("./assets/textures/alex.png"));
+			}
 
 			ByteBuffer byteBuffer = ByteBuffer.allocateDirect(decoder.getWidth() * 4 * decoder.getHeight());
 			decoder.decode(byteBuffer, decoder.getWidth() * 4, PNGDecoder.Format.RGBA);

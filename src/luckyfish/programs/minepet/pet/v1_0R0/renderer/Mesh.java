@@ -1,6 +1,6 @@
 package luckyfish.programs.minepet.pet.v1_0R0.renderer;
 
-import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers.*;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.*;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.Shader;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.utils.RendererFailureException;
@@ -88,7 +88,7 @@ public final class Mesh {
 
 	public void setLocation(Location3D location) {
 		this.location = location.toVector();
-		this.location.div(128.0f);
+		this.location.div(32);
 	}
 
 	public void setRotation(float x, float y, float z) {

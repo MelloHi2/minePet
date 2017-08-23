@@ -1,4 +1,4 @@
-package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers;
+package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects;
 
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 
@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL30.*;
 /**
  * 顶点数组
  */
-public class VertexArrays implements Buffer {
+public class VertexArrays implements Object {
 	private final int vertexArraysId;
 	private final OpenGLInterface openGLInterface;
 

@@ -1,15 +1,16 @@
 package luckyfish.programs.minepet.pet.v1_0R0.model;
 
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.Mesh;
-import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers.Texture;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.Texture;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 import luckyfish.programs.minepet.utils.Location2D;
 import luckyfish.programs.minepet.utils.Location3D;
 import luckyfish.programs.minepet.utils.Vector3D;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.joml.Math.*;
 
 /**
  * 方块模型
@@ -28,11 +29,11 @@ public class ModelBox {
 			// V4
 			-0.5f,  0.5f, 0.5f,
 			// V5
-			0.5f,  0.5f, 0.5f,
+			-0.5f,  -0.5f, 0.5f,
 			// V6
-			-0.5f, -0.5f, 0.5f,
-			// V7
 			0.5f, -0.5f, 0.5f,
+			// V7
+			0.5f, 0.5f, 0.5f,
 
 			// top face
 			// v8
@@ -99,7 +100,9 @@ public class ModelBox {
 	private Vector3D rotationOffset = new Vector3D(0, 0, 0);
 	private Vector3D rotation = new Vector3D(0, 0, 0);
 
-	public ModelBox(Vector3D size, Location3D location, Texture texture, Vector3D sizeForTexture, Location2D textureOffset, OpenGLInterface openGLInterface) throws IOException {
+	private Location3D rotationTarget;
+
+	public ModelBox(Vector3D size, Location3D location, Texture texture, Vector3D sizeForTexture, Location2D textureOffset, OpenGLInterface openGLInterface) {
 		float[] currentVertex = new float[vertices.length];
 		System.arraycopy(vertices, 0, currentVertex, 0, vertices.length);
 		size.div(32);
@@ -116,6 +119,7 @@ public class ModelBox {
 		mesh.setLocation(location);
 
 		this.openGLInterface = openGLInterface;
+		rotationTarget = new Location3D(0, 0, 0).add(location);
 	}
 
 	public void setUseAlpha(boolean useAlpha) {
@@ -134,6 +138,16 @@ public class ModelBox {
 		Vector3D rotation = this.rotation.clone();
 		rotation.add(rotationOffset);
 		mesh.setRotation(rotation);
+		// 计算旋转和旋转手柄的关系
+		Location3D targetLocation = new Location3D(0, 0, 0);
+//		Vector3D rotationAsRotationTarget = new Vector3D((float) atan2(rotationTarget.getY() - location.getY(), rotationTarget.getZ() - location.getZ()), (float) atan2(rotationTarget.getX() - location.getX(), rotationTarget.getZ() - location.getZ()), (float) atan2(rotationTarget.getY() - location.getY(),rotationTarget.getX() - location.getX()))
+		float distanceToRotationPoint = location.distance(rotationTarget);
+		targetLocation.add((float) (rotationTarget.getX() + distanceToRotationPoint * -sin(toRadians(rotation.z))),
+				(float) (rotationTarget.getY() + distanceToRotationPoint * cos((float)toRadians(rotation.x)) * cos((float)toRadians(rotation.z))),
+				rotationTarget.getZ());
+		mesh.setLocation(targetLocation);
+
+		// 画！
 		mesh.draw();
 		if (useAlpha) {
 			openGLInterface.disable(OpenGLInterface.EnableValues.ALPHA);
@@ -156,6 +170,9 @@ public class ModelBox {
 
 	public void setRotationOffset(Vector3D rotationOffset) {
 		this.rotationOffset = rotationOffset;
+	}
+	public void setRotationTarget(Location3D rotationTarget) {
+		this.rotationTarget = rotationTarget.add(location);
 	}
 
 	public void addChild(ModelBox child) {

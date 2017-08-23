@@ -1,6 +1,8 @@
 package luckyfish.programs.minepet.utils.mojangHelpers;
 
 import com.google.gson.Gson;
+import luckyfish.programs.minepet.utils.mojangHelpers.exceptions.InvalidCredentialsException;
+import luckyfish.programs.minepet.utils.mojangHelpers.exceptions.TooManyRequestsException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -25,7 +27,7 @@ public final class MojangAPI {
 		throw new UnsupportedOperationException();
 	}
 
-	public static AuthResult loginWithPassword(String accountEmailBox, String password) throws IOException {
+	public static AuthResult loginWithPassword(String accountEmailBox, String password) throws IOException, InvalidCredentialsException, TooManyRequestsException {
 		AuthPayload payload = new AuthPayload();
 		payload.agent = new AuthPayload.Agent();
 		payload.password = password;
@@ -46,22 +48,29 @@ public final class MojangAPI {
 		writer.flush();
 
 		connection.connect();
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			StringBuilder builder = new StringBuilder();
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-		StringBuilder builder = new StringBuilder();
+			for (String str = ""; str != null; str = reader.readLine()) {
+				builder.append(str).append(System.getProperty("line.separator"));
+			}
+			AuthResponse response = gson.fromJson(builder.toString(), AuthResponse.class);
 
-		for (String str = ""; str != null; str = reader.readLine()) {
-			builder.append(str).append(System.getProperty("line.separator"));
+			String accessToken = response.accessToken;
+			UUID uuid = getUserProperties(response.selectedProfile.name, System.currentTimeMillis()).getUuid();
+			String playerName = response.selectedProfile.name;
+
+			return new AuthResult(accessToken, uuid, playerName);
+		} catch (IOException e) {
+			Gson g = new Gson();
+			ErrorResponse errorResponse = g.fromJson(new InputStreamReader(connection.getErrorStream()), ErrorResponse.class);
+
+			throwSuckingException(connection, errorResponse);
+			return null;
 		}
-		AuthResponse response = gson.fromJson(builder.toString(), AuthResponse.class);
-
-		String accessToken = response.accessToken;
-		UUID uuid = getUserProperties(response.selectedProfile.name, System.currentTimeMillis()).getUuid();
-		String playerName = response.selectedProfile.name;
-
-		return new AuthResult(accessToken, uuid, playerName);
 	}
-	public static String validateAccessToken(String accessToken) throws IOException {
+	public static String validateAccessToken(String accessToken) throws IOException, InvalidCredentialsException, TooManyRequestsException {
 		URL url = new URL(mojangValidateAPI);
 
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -78,22 +87,33 @@ public final class MojangAPI {
 		String payload = gson.toJson(accessToken);
 
 		urlConnection.connect();
-		urlConnection.getOutputStream().write(payload.getBytes());
-		urlConnection.getOutputStream().flush();
+		try {
+			urlConnection.getOutputStream().write(payload.getBytes());
+			urlConnection.getOutputStream().flush();
 
-		if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_NO_CONTENT) {
+//			if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_NO_CONTENT) {
 			return accessToken;
+//			}
+		} catch (IOException e) {
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getErrorStream()));
+			ErrorResponse errorResponse = gson.fromJson(bufferedReader, ErrorResponse.class);
+
+			throwSuckingException(urlConnection, errorResponse);
+			return null;
 		}
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-		StringBuilder stringBuilder = new StringBuilder();
-		String aLine;
-		while ((aLine = bufferedReader.readLine()) != null) {
-			stringBuilder.append(aLine).append(System.getProperty("line.separator"));
-		}
-		throw new IllegalStateException(stringBuilder.toString());
 	}
 
-	public static InputStream getPlayerSkinInputStream(UUID playerUUID) throws IOException {
+	private static void throwSuckingException(HttpURLConnection urlConnection, ErrorResponse errorResponse) throws InvalidCredentialsException, TooManyRequestsException, IOException {
+		if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
+			throw new InvalidCredentialsException(errorResponse.errorMessage);
+		} else if (urlConnection.getResponseCode() == 429) {
+			throw new TooManyRequestsException();
+		} else {
+			throw new IllegalStateException(errorResponse.errorMessage);
+		}
+	}
+
+	public static InputStream getPlayerSkinInputStream(UUID playerUUID) throws IOException, InvalidCredentialsException, TooManyRequestsException {
 		String target = mojangProfileAPI + playerUUID.toString().replaceAll("-", "") + "?unsigned=false";
 //		System.out.println(target);
 
@@ -105,12 +125,18 @@ public final class MojangAPI {
 		urlConnection.setUseCaches(true);
 
 		urlConnection.connect();
-
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 		StringBuilder stringBuilder = new StringBuilder();
-		String aLine;
-		while ((aLine = bufferedReader.readLine()) != null) {
-			stringBuilder.append(aLine).append(System.getProperty("line.separator"));
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			String aLine;
+			while ((aLine = bufferedReader.readLine()) != null) {
+				stringBuilder.append(aLine).append(System.getProperty("line.separator"));
+			}
+		} catch (IOException e) {
+			Gson gson = new Gson();
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getErrorStream()));
+			ErrorResponse errorResponse = gson.fromJson(bufferedReader, ErrorResponse.class);
+			throwSuckingException(urlConnection, errorResponse);
 		}
 		String str = stringBuilder.toString();
 //		System.out.println(str);
@@ -230,5 +256,10 @@ public final class MojangAPI {
 				String url;
 			}
 		}
+	}
+
+	private static class ErrorResponse {
+		public String error;
+		public String errorMessage;
 	}
 }
