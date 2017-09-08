@@ -1,4 +1,4 @@
-package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers;
+package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects;
 
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 
@@ -13,7 +13,7 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 /**
  * 颜色VBO
  */
-public class ColorVertexBufferObject implements Buffer {
+public class ColorVertexBufferObject implements Object {
 	private final int colorVBOId;
 	private final OpenGLInterface openGLInterface;
 

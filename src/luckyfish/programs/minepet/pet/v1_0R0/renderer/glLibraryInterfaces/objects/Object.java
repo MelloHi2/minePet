@@ -1,11 +1,12 @@
-package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers;
+package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects;
 
 import java.io.IOException;
 
 /**
- * 缓冲对象
+ * OpenGL专用对象
+ * 还有我没对象(°Д°)
  */
-public interface Buffer {
+public interface Object {
 	void bind();
 	void unbind();
 

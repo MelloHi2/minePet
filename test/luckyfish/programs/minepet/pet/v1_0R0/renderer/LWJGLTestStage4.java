@@ -1,6 +1,6 @@
 package luckyfish.programs.minepet.pet.v1_0R0.renderer;
 
-import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers.Texture;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.Texture;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initializers.Renderer;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.GLFWWindow;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
@@ -53,42 +53,99 @@ public class LWJGLTestStage4 {
 		});
 		float[] vertices = new float[]{
 				// VO
-				-0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f,  -0.5f,
 				// V1
-				-0.5f, -0.5f,  0.5f,
+				-0.5f, -0.5f,  -0.5f,
 				// V2
-				0.5f, -0.5f,  0.5f,
+				0.5f, -0.5f,  -0.5f,
 				// V3
-				0.5f,  0.5f,  0.5f,
+				0.5f,  0.5f,  -0.5f,
 				// V4
-				-0.5f,  0.5f, -0.5f,
+				-0.5f,  0.5f, 0.5f,
 				// V5
-				0.5f,  0.5f, -0.5f,
+				0.5f,  0.5f, 0.5f,
 				// V6
-				-0.5f, -0.5f, -0.5f,
+				-0.5f, -0.5f, 0.5f,
 				// V7
+				0.5f, -0.5f, 0.5f,
+
+				// top face
+				// v8
+				-0.5f, 0.5f, 0.5f,
+				// v9
+				-0.5f, 0.5f, -0.5f,
+				// v10
+				0.5f, 0.5f, -0.5f,
+				// v11
+				0.5f, 0.5f, 0.5f,
+
+				// right face
+				// v12
+				0.5f, 0.5f, -0.5f,
+				// v13
 				0.5f, -0.5f, -0.5f,
+				// v14
+				0.5f, -0.5f, 0.5f,
+				// v15
+				0.5f, 0.5f, 0.5f,
+
+				// left face
+				// v16
+				-0.5f, 0.5f, -0.5f,
+				// v17
+				-0.5f, -0.5f, -0.5f,
+				// v18
+				-0.5f, -0.5f, 0.5f,
+				// v19
+				-0.5f, 0.5f, 0.5f,
+
+				// bottom face
+				// v20
+				-0.5f, -0.5f, 0.5f,
+				// v21
+				-0.5f, -0.5f, -0.5f,
+				// v22
+				0.5f, -0.5f, -0.5f,
+				// v23
+				0.5f, -0.5f, 0.5f,
+
+				// back face
+				// V24
+				-0.5f,  0.5f,  0.5f,
+				// V25
+				-0.5f, -0.5f,  0.5f,
+				// V26
+				0.5f, -0.5f,  0.5f,
+				// V27
+				0.5f,  0.5f,  0.5f,
 		};
 
-		for (int i = 0;i < 8;i ++) {
+		for (int i = 0;i < 28;i ++) {
 			vertices[i * 3] *= 0.5;
 			vertices[i * 3 + 1] *= 1;
 			vertices[i * 3 + 2] *= 1;
 		}
 
+//		for (int i = 0;i < vertices.length;i ++) {
+//			System.out.print(vertices[i] + " ");
+//			if (i % 3 == 2) {
+//				System.out.println();
+//			}
+//		}
+
 		mesh = new Mesh(vertices, new int[]{
 				// Front face
 				0, 1, 3, 3, 1, 2,
 				// Top Face
-				4, 0, 3, 5, 4, 3,
+				8, 9, 11, 11, 9, 10,
 				// Right face
-				3, 2, 7, 5, 3, 7,
+				12, 13, 15, 15, 13, 14,
 				// Left face
-				6, 1, 0, 6, 0, 4,
+				16, 17, 19, 19, 17, 18,
 				// Bottom face
-				2, 1, 6, 2, 6, 7,
+				20, 21, 23, 23, 21, 22,
 				// Back face
-				7, 6, 4, 7, 4, 5,
+				24, 25, 27, 27, 25, 26,
 		}, new float[] {
 				0.5f, 0.0f, 0.0f,
 				0.5f, 0.5f, 0.0f,

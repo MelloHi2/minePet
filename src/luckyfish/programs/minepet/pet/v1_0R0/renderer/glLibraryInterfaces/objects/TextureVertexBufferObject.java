@@ -1,4 +1,4 @@
-package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers;
+package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects;
 
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 import org.lwjgl.system.MemoryUtil;
@@ -10,9 +10,9 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 
 /**
- * luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers.TextureVertexBufferObject:
+ * luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.TextureVertexBufferObject:
  */
-public class TextureVertexBufferObject implements Buffer {
+public class TextureVertexBufferObject implements Object {
 	private final int textureVBOId;
 	private final OpenGLInterface openGLInterface;
 

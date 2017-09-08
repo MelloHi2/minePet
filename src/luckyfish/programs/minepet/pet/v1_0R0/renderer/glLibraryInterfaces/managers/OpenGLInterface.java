@@ -74,15 +74,36 @@ public final class OpenGLInterface {
 		glActiveTexture(GL_TEXTURE0);
 	}
 
+	public void setBlendFunction(BlendFunctions srcFunction, BlendFunctions destFunction) {
+		setGlCapabilities();
+		glBlendFunc(srcFunction.getId(), destFunction.getId());
+	}
+
 	public enum EnableValues {
 		DEPTH_TEST(GL_DEPTH_TEST),
-		TEXTURE(GL_TEXTURE_2D);
+		TEXTURE(GL_TEXTURE_2D),
+		ALPHA(GL_ALPHA_TEST),
+		BLEND(GL_BLEND);
 
 		private final int id;
 		EnableValues(int id) {
 			this.id = id;
 		}
 
+		public int getId() {
+			return id;
+		}
+	}
+	public enum BlendFunctions {
+		ONE_MINUS_SRC_ALPHA(GL_ONE_MINUS_SRC_ALPHA),
+		SRC_ALPHA(GL_SRC_ALPHA),
+		ONE_MINUS_DST_ALPHA(GL_ONE_MINUS_DST_ALPHA);
+
+		private final int id;
+
+		BlendFunctions(int id) {
+			this.id = id;
+		}
 		public int getId() {
 			return id;
 		}

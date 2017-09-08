@@ -1,4 +1,4 @@
-package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.buffers;
+package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects;
 
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 
@@ -11,7 +11,7 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 /**
  * 顶点序列
  */
-public class IndexBufferObject implements Buffer {
+public class IndexBufferObject implements Object {
 	private final int indexBufferObjectId;
 	private final OpenGLInterface openGLInterface;
 
