@@ -1,5 +1,7 @@
 package luckyfish.programs.minepet.utils;
 
+import luckyfish.programs.minepet.utils.math.Vector3D;
+
 /**
  * 三维位置
  */
@@ -76,5 +78,12 @@ public final class Location3D implements Cloneable {
 				", y=" + y +
 				", z=" + z +
 				'}';
+	}
+
+	public final Location3D add(Vector3D d) {
+		return add(d.x, d.y, d.z);
+	}
+	public final Location3D subtract(Location3D another) {
+		return add(-another.x, -another.y, -another.z);
 	}
 }

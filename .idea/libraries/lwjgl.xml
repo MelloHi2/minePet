@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="lwjgl">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-glfw.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-jemalloc.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-nfd.jar!/" />
@@ -9,9 +8,9 @@
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-opengl.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-stb.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.4.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.3-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-glfw-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-jemalloc-javadoc.jar!/" />
@@ -19,10 +18,9 @@
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-openal-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-opengl-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-stb-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.4-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.3-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.3-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-glfw-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-jemalloc-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-nfd-sources.jar!/" />
@@ -30,6 +28,8 @@
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-opengl-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/lwjgl/lwjgl-stb-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/lwjgl/joml-1.9.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

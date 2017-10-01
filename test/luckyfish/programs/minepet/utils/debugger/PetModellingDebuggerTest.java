@@ -1,10 +1,11 @@
-package luckyfish.programs.minepet.pet.v1_0R0.model;
+package luckyfish.programs.minepet.utils.debugger;
 
-import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.Texture;
+import luckyfish.programs.minepet.pet.v1_0R0.model.ModelPlayer;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initializers.Renderer;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.GLFWWindow;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.Shader;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.Texture;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.utils.GLFWContextProfileType;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.utils.GLFWWindowsInitInfo;
 import luckyfish.programs.minepet.utils.ResourceManager;
@@ -13,16 +14,14 @@ import org.junit.Test;
 
 import java.awt.*;
 
-/**
- * luckyfish.programs.minepet.pet.v1_0R0.model.ModelTestStage2:
- */
-public class ModelTestStage2 {
+public class PetModellingDebuggerTest {
+	private PetModellingDebugger debugger;
 	private GLFWWindow window;
 	private OpenGLInterface openGLInterface;
-	private ModelBase model;
+	private ModelPlayer model;
 
 	@Before
-	public void setup() throws Exception {
+	public void setUp() throws Exception {
 		window = new GLFWWindow(w -> {
 			w.setGLContextProfile(GLFWContextProfileType.CORE_PROFILE);
 			w.setVisible(true);
@@ -59,6 +58,9 @@ public class ModelTestStage2 {
 		Texture texture = Texture.getAuthorTexture(openGLInterface);
 
 		model = new ModelPlayer(texture, openGLInterface, true);
+		debugger = new PetModellingDebugger(model);
+		debugger.pack();
+		new Thread(() -> debugger.setVisible(true)).start();
 	}
 
 	@Test
@@ -78,6 +80,7 @@ public class ModelTestStage2 {
 				public void render() {
 					model.render();
 					model.tick();
+					debugger.update();
 //					model.setRotation(new Vector3D(finalI, finalI, 0));
 				}
 
@@ -88,5 +91,4 @@ public class ModelTestStage2 {
 			});
 		}
 	}
-
 }

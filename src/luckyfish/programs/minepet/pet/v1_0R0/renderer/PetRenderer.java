@@ -31,8 +31,8 @@ public class PetRenderer {
 
 			shader = new Shader(openGLInterface);
 
-			shader.createVertexShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/vertex.vs")));
-			shader.createFragmentShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/fragment.fs")));
+			shader.createVertexShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/vertex.vsh")));
+			shader.createFragmentShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/fragment.fsh")));
 
 			shader.link();
 		} catch (Throwable t) {

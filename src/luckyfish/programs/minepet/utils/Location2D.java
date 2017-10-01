@@ -28,4 +28,12 @@ public final class Location2D implements Cloneable {
 	public float distance(Location2D location2D) {
 		return (float)Math.sqrt(Math.pow(x - location2D.x, 2) + Math.pow(y - location2D.y, 2));
 	}
+
+	@Override
+	public String toString() {
+		return "Location2D{" +
+				"x=" + x +
+				", y=" + y +
+				'}';
+	}
 }

@@ -5,7 +5,7 @@ import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.manage
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.Shader;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.utils.RendererFailureException;
 import luckyfish.programs.minepet.utils.Location3D;
-import luckyfish.programs.minepet.utils.Vector3D;
+import luckyfish.programs.minepet.utils.math.Vector3D;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 

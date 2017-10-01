@@ -35,12 +35,12 @@ public class LWJGLTestStage4 {
 			Shader shader = i.getShader();
 
 			try {
-				shader.createVertexShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/vertex.vs")));
+				shader.createVertexShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/vertex.vsh")));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			try {
-				shader.createFragmentShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/fragment.fs")));
+				shader.createFragmentShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/fragment.fsh")));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

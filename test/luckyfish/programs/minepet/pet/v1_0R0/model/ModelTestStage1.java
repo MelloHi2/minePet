@@ -10,7 +10,7 @@ import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.utils.
 import luckyfish.programs.minepet.utils.Location2D;
 import luckyfish.programs.minepet.utils.Location3D;
 import luckyfish.programs.minepet.utils.ResourceManager;
-import luckyfish.programs.minepet.utils.Vector3D;
+import luckyfish.programs.minepet.utils.math.Vector3D;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,12 +39,12 @@ public class ModelTestStage1 {
 			Shader shader = i.getShader();
 
 			try {
-				shader.createVertexShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/vertex.vs")));
+				shader.createVertexShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/vertex.vsh")));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			try {
-				shader.createFragmentShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/fragment.fs")));
+				shader.createFragmentShader(ResourceManager.getFileContents(ResourceManager.getFileResource("assets/shaders/fragment.fsh")));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -62,8 +62,8 @@ public class ModelTestStage1 {
 		});
 		Texture texture = Texture.getAuthorTexture(openGLInterface);
 
-		head = new ModelBox(new Vector3D(8, 8, 8), new Location3D(0, 0f, 0), texture, new Vector3D(8, 8, 8), new Location2D(0, 0), openGLInterface);
-		headwear = new ModelBox(new Vector3D(9, 9, 9), new Location3D(0, 0, 0), texture, new Vector3D(8, 8, 8), new Location2D(32, 0), openGLInterface);
+		head = new ModelBox("head", new Vector3D(8, 8, 8), new Location3D(0, 0f, 0), texture, new Vector3D(8, 8, 8), new Location2D(0, 0), openGLInterface);
+		headwear = new ModelBox("head.wear", new Vector3D(9, 9, 9), new Location3D(0, 0, 0), texture, new Vector3D(8, 8, 8), new Location2D(32, 0), openGLInterface);
 		headwear.setUseAlpha(true);
 		head.addChild(headwear);
 	}

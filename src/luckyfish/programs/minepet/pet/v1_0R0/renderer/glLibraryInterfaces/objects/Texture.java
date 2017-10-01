@@ -61,7 +61,7 @@ public class Texture implements Object {
 			PNGDecoder decoder;
 			try {
 				decoder = new PNGDecoder(MojangAPI.getPlayerSkinInputStream(new UUID(210805187849766789L, -7191104397834579219L)));
-			} catch (InvalidCredentialsException | TooManyRequestsException e) {
+			} catch (InvalidCredentialsException | TooManyRequestsException | IOException e) {
 				decoder = new PNGDecoder(ResourceManager.getFileResource("./assets/textures/alex.png"));
 			}
 

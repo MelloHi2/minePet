@@ -25,5 +25,14 @@
     </orderEntry>
     <orderEntry type="library" name="gson" level="project" />
     <orderEntry type="library" name="Arquillian TestNG:Release" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/redist/annotations-java8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
