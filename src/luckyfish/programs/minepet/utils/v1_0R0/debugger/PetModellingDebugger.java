@@ -1,4 +1,4 @@
-package luckyfish.programs.minepet.utils.debugger;
+package luckyfish.programs.minepet.utils.v1_0R0.debugger;
 
 import luckyfish.programs.minepet.pet.v1_0R0.model.ModelBase;
 import luckyfish.programs.minepet.pet.v1_0R0.model.ModelBox;

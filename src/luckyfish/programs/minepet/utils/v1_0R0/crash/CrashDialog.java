@@ -1,4 +1,4 @@
-package luckyfish.programs.minepet.utils.crash;
+package luckyfish.programs.minepet.utils.v1_0R0.crash;
 
 import javax.swing.*;
 import java.awt.*;

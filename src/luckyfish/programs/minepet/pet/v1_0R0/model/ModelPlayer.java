@@ -34,7 +34,6 @@ public class ModelPlayer extends ModelBase {
 
 	@Override
 	public void tick() {
-		rot.add(0, 0, 2);
-		getBox("arms.right").setRotation(rot);
+
 	}
 }
