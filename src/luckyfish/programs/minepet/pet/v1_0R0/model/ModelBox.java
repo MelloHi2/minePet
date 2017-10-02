@@ -137,7 +137,7 @@ public class ModelBox {
 		mesh.setLocation(location);
 
 		this.openGLInterface = openGLInterface;
-		rotationTarget = new Location3D(0, 0, 0).add(location);
+		rotationTarget = new Location3D(0, 0, 0);
 	}
 	public ModelBox(String name, Vector3D size, Location3D location, Texture texture, Vector3D sizeForTexture, Location2D textureOffset, OpenGLInterface openGLInterface, Vector3D rotationPreOffset) {
 		this(name, size, location, texture, sizeForTexture, textureOffset, openGLInterface);
@@ -149,12 +149,15 @@ public class ModelBox {
 	}
 
 	public void draw() {
-		openGLInterface.enable(OpenGLInterface.EnableValues.DEPTH_TEST);
+//		openGLInterface.enable(OpenGLInterface.EnableValues.DEPTH_TEST);
 		openGLInterface.enable(OpenGLInterface.EnableValues.TEXTURE);
 		if (useAlpha) {
 			openGLInterface.enable(OpenGLInterface.EnableValues.ALPHA);
 			openGLInterface.enable(OpenGLInterface.EnableValues.BLEND);
 			openGLInterface.setBlendFunction(OpenGLInterface.BlendFunctions.SRC_ALPHA, OpenGLInterface.BlendFunctions.ONE_MINUS_SRC_ALPHA);
+		} else {
+			openGLInterface.disable(OpenGLInterface.EnableValues.ALPHA);
+			openGLInterface.disable(OpenGLInterface.EnableValues.BLEND);
 		}
 		openGLInterface.useTexture();
 		Vector3D rotation = this.rotation.clone();
@@ -190,7 +193,7 @@ public class ModelBox {
 			openGLInterface.disable(OpenGLInterface.EnableValues.BLEND);
 		}
 		openGLInterface.disable(OpenGLInterface.EnableValues.TEXTURE);
-		openGLInterface.disable(OpenGLInterface.EnableValues.DEPTH_TEST);
+//		openGLInterface.disable(OpenGLInterface.EnableValues.DEPTH_TEST);
 	}
 
 	public void setLocation(Location3D location) {

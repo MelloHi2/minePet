@@ -8,18 +8,17 @@ import javax.swing.*;
 import java.awt.*;
 
 import static luckyfish.programs.minepet.utils.math.MathHelper.*;
-import static luckyfish.programs.minepet.utils.math.MathHelper.toRadians;
 
 
 /**
  * 模型监视器
- *
+ * <p>
  * 以后修模型方便了=w=
  */
 public class PetModellingDebugger extends JDialog {
 	private JPanel contentPane;
 	private JTextArea ModelMonitorNameArea;
-	private JComboBox ModelMonitorSelection;
+	private JComboBox<String> ModelMonitorSelection;
 	private JTextArea TextArea;
 	private JTextPane xTextPane;
 	private JTextField rotationXDisplay;
@@ -50,12 +49,21 @@ public class PetModellingDebugger extends JDialog {
 	private JTextField rotationOffsetsZDisplay;
 	private ModelBase monitorModel;
 
+	@SuppressWarnings("raw-type")
 	public PetModellingDebugger(ModelBase monitorModel) {
 		this.monitorModel = monitorModel;
 		setContentPane(contentPane);
 		setModal(true);
 		setSize(600, 600);
+		setTitle("模型监视器");
+
 //		setVisible(true);
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Exception e) {
+			// If Nimbus is not available, you can set the GUI to another look and feel.
+		}
+
 
 		DefaultComboBoxModel<String> listSelectionModel = new DefaultComboBoxModel<>();
 

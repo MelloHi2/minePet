@@ -28,9 +28,15 @@ public abstract class ModelBase {
 	}
 
 	final void addBox(String name, Vector3D size, Location3D location, Location2D textureOffset, Vector3D sizeForTexture) {
+		if (boxes.containsKey(name)) {
+			throw new IllegalArgumentException("There is already a box here!");
+		}
 		boxes.put(name, new ModelBox(name, size, location, texture, sizeForTexture, textureOffset, openGLInterface));
 	}
 	final void addBox(String name, Vector3D size, Location3D location, Location2D textureOffset, Vector3D sizeForTexture, Vector3D preRotation) {
+		if (boxes.containsKey(name)) {
+			throw new IllegalArgumentException("There is already a box here!");
+		}
 		boxes.put(name, new ModelBox(name, size, location, texture, sizeForTexture, textureOffset, openGLInterface, preRotation));
 	}
 	final ModelBox getBox(String name) {
@@ -41,18 +47,16 @@ public abstract class ModelBase {
 	}
 
 	public final void render() {
+		openGLInterface.enable(OpenGLInterface.EnableValues.DEPTH_TEST);
 		boxes.forEach((s, b) -> b.draw());
+		openGLInterface.disable(OpenGLInterface.EnableValues.DEPTH_TEST);
 	};
 	public abstract void tick();
 	public void sit() {
 		// 什么都不干=-=
 	}
 
-	public void walk() {
+	public void walk(long time) {
 		// 什么都不干=-=
-	}
-
-	public void setRotation(Vector3D rotation) {
-		boxes.forEach((s, b) -> b.setRotation((Vector3D) rotation.set(0, rotation.y, rotation.z)));
 	}
 }
