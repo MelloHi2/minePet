@@ -1,11 +1,13 @@
 package luckyfish.programs.minepet.pet.v1_0R0.renderer;
 
-import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.*;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.OpenGLInterface;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.managers.Shader;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.objects.*;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.utils.Camera;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.utils.RendererFailureException;
 import luckyfish.programs.minepet.utils.Location3D;
 import luckyfish.programs.minepet.utils.math.Vector3D;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -58,22 +60,12 @@ public final class Mesh {
 		VBO.bind();
 		IBO.bind();
 
-		Shader.Uniform projectionMatrix;
-		Shader.Uniform worldMatrix;
-		try {
-//			projectionMatrix = openGLInterface.getShader().getUniform("projectionMatrix");
-			worldMatrix = openGLInterface.getShader().getUniform("worldMatrix");
-		} catch (Exception e) {
-			try {
-//				projectionMatrix = openGLInterface.getShader().new Uniform("projectionMatrix");
-				worldMatrix = openGLInterface.getShader().new Uniform("worldMatrix");
-			} catch (Exception e1) {
-				throw new RendererFailureException(e1);
-			}
-		}
+		Shader.Uniform worldMatrix = getUniform("worldMatrix");
+		Shader.Uniform viewMatrix = getUniform("viewMatrix");
 
 //		projectionMatrix.setValueAsMatrix(transformation.getProjectionMatrix());
 		worldMatrix.setValueAsMatrix(transformation.getWorldMatrix(location, rotation, scale));
+		viewMatrix.setValueAsMatrix(transformation.getViewMatrix(openGLInterface.getCamera()));
 
 		openGLInterface.draw(vertexAmount);
 
@@ -102,6 +94,21 @@ public final class Mesh {
 		this.scale = scale;
 	}
 
+	@NotNull
+	private Shader.Uniform getUniform(String name) {
+		Shader.Uniform uniform;
+		try {
+			uniform = openGLInterface.getShader().getUniform(name);
+		} catch (Exception e) {
+			try {
+				uniform = openGLInterface.getShader().new Uniform(name);
+			} catch (Exception e1) {
+				throw new RendererFailureException(e1);
+			}
+		}
+		return uniform;
+	}
+
 	/**
 	 * 变形器
 	 * 主要调整方向和位置
@@ -110,17 +117,8 @@ public final class Mesh {
 	 * 顺便+1s
 	 */
 	public final class Transformation {
-//		private final Matrix4f projectionMatrix = new Matrix4f(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 		private final Matrix4f worldMatrix = new Matrix4f();
-//	    /*
-//		Q:为什么我被注释掉？ QAQ
-//		A:因为你让我的东西没法显示了啊qwq
-//		*/
-//		public final Matrix4f getProjectionMatrix() {
-//			projectionMatrix.identity();
-//			projectionMatrix.perspective(90, 1, 0.01f, 1000.0f);
-//			return projectionMatrix;
-//		}
+		private final Matrix4f viewMatrix = new Matrix4f();
 
 		Matrix4f getWorldMatrix(Vector3f offset, Vector3f rotation, float scale) {
 			worldMatrix.identity().translate(offset).
@@ -129,6 +127,19 @@ public final class Mesh {
 					rotateZ((float)Math.toRadians(rotation.z)).
 					scale(scale);
 			return worldMatrix;
+		}
+
+		Matrix4f getViewMatrix(Camera camera) {
+			Vector3f cameraPos = camera.getPosition();
+			Vector3f rotation = camera.getRotation();
+
+			viewMatrix.identity();
+			// First do the rotation so camera rotates over its position
+			viewMatrix.rotate((float)Math.toRadians(rotation.x), new Vector3f(1, 0, 0))
+					.rotate((float)Math.toRadians(rotation.y), new Vector3f(0, 1, 0));
+			// Then do the translation
+			viewMatrix.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
+			return viewMatrix;
 		}
 	}
 }

@@ -2,6 +2,7 @@ package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.manag
 
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initializers.GLInitializer;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initializers.Renderer;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.utils.Camera;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
 
@@ -18,6 +19,7 @@ public final class OpenGLInterface {
 	private final GLFWWindow window;
 	private final GLCapabilities glCapabilities;
 	private final Shader shader;
+	private final Camera camera = new Camera();
 
 	public OpenGLInterface(GLFWWindow window, GLInitializer glInitializer) throws Exception {
 		this.window = window;
@@ -77,6 +79,10 @@ public final class OpenGLInterface {
 	public void setBlendFunction(BlendFunctions srcFunction, BlendFunctions destFunction) {
 		setGlCapabilities();
 		glBlendFunc(srcFunction.getId(), destFunction.getId());
+	}
+
+	public Camera getCamera() {
+		return camera;
 	}
 
 	public enum EnableValues {

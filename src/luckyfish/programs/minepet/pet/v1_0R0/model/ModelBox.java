@@ -165,7 +165,6 @@ public class ModelBox {
 		mesh.setRotation(rotation);
 		// 计算旋转和旋转手柄的关系
 		Location3D targetLocation = new Location3D(0, 0, 0);
-		Vector3D realRotation = (Vector3D) rotationPreOffset.clone().add(rotation);
 
 		Vector3D offset = new Vector3D(rotationTarget.toVector());
 

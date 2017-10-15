@@ -7,11 +7,39 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="e3588" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="51cef" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="c7fb8" class="javax.swing.JTextArea" binding="CrashDescription">
+            <constraints border-constraint="Center"/>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+      <grid id="4147f" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="de82d" class="javax.swing.JTextPane" binding="CrashReportDisplay">
+            <constraints border-constraint="North"/>
+            <properties/>
+          </component>
+          <component id="a720" class="javax.swing.JButton" binding="button1" default-binding="true">
+            <constraints border-constraint="East"/>
+            <properties>
+              <text value="Button"/>
+            </properties>
+          </component>
+          <component id="1595a" class="javax.swing.JButton" binding="buttonCopy">
+            <constraints border-constraint="West"/>
+            <properties>
+              <text value="复制错误报告"/>
+            </properties>
+          </component>
+        </children>
       </grid>
     </children>
   </grid>

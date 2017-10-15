@@ -57,6 +57,8 @@ public class PetModellingDebuggerTest {
 		});
 		Texture texture = Texture.getAuthorTexture(openGLInterface);
 
+		openGLInterface.getCamera().setRotation(0, 45, 45);
+
 		model = new ModelPlayer(texture, openGLInterface, true);
 		debugger = new PetModellingDebugger(model);
 		debugger.pack();

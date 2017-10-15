@@ -9,6 +9,11 @@ import java.lang.management.ManagementFactory;
  */
 public class CrashReport implements Serializable {
 	private static final long serialVersionUID = 8416479846549L;
+	private boolean isFatal;
+
+	public Throwable getCause() {
+		return cause;
+	}
 
 	private Throwable cause;
 	private String description;
@@ -17,6 +22,11 @@ public class CrashReport implements Serializable {
 	public CrashReport(Throwable cause, String description) {
 		this.cause = cause;
 		this.description = description;
+	}
+
+	public CrashReport(Throwable cause, String description, boolean isFatal /*什么？大新闻吗？*/) {
+		this(cause, description);
+		this.isFatal = isFatal;
 	}
 
 	/**
@@ -67,5 +77,9 @@ public class CrashReport implements Serializable {
 		builder.append(String.format("虚拟机参数：%s，总共有%d个参数", args, args.split(" ").length)).append(System.getProperty("line.separator"));
 
 		return builder.toString();
+	}
+
+	public boolean isFatal() {
+		return isFatal;
 	}
 }

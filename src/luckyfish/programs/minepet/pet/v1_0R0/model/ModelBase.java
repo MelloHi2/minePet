@@ -22,6 +22,9 @@ public abstract class ModelBase {
 	private final OpenGLInterface openGLInterface;
 	private final Texture texture;
 
+	boolean sitting;
+	boolean walking;
+
 	ModelBase(Texture texture, OpenGLInterface openGLInterface) {
 		this.texture = texture;
 		this.openGLInterface = openGLInterface;
@@ -52,11 +55,18 @@ public abstract class ModelBase {
 		openGLInterface.disable(OpenGLInterface.EnableValues.DEPTH_TEST);
 	};
 	public abstract void tick();
-	public void sit() {
-		// 什么都不干=-=
+	public final void sit() {
+		sitting = true;
+		walking = false;
 	}
 
-	public void walk(long time) {
-		// 什么都不干=-=
+	public final void walk() {
+		sitting = false;
+		walking = true;
+	}
+
+	public final void stand() {
+		walking = false;
+		sitting = false;
 	}
 }
