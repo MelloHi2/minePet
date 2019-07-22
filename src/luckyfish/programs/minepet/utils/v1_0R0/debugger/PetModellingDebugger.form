@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="luckyfish.programs.minepet.utils.v1_0R0.debugger.PetModellingDebugger">
+  <grid id="cbd77" binding="contentPane" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="48" y="54" width="436" height="353"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="21674" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="8ca03" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="North"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="2fe16" class="javax.swing.JTextArea" binding="ModelMonitorNameArea">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <editable value="false"/>
+                  <enabled value="true"/>
+                  <text value="监视模型"/>
+                </properties>
+              </component>
+              <component id="46852" class="javax.swing.JComboBox" binding="ModelMonitorSelection">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <model/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="ffb31" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="5708e" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="763fa" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="b3dde" class="javax.swing.JTextPane" binding="xTextPane" default-binding="true">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <enabled value="true"/>
+                          <text value="x"/>
+                        </properties>
+                      </component>
+                      <component id="ce647" class="javax.swing.JTextField" binding="rotationXDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="9753e" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <grid id="88a5c" layout-manager="BorderLayout" hgap="0" vgap="0">
+                        <constraints border-constraint="South"/>
+                        <properties/>
+                        <border type="none"/>
+                        <children>
+                          <component id="8ee8d" class="javax.swing.JTextField" binding="zTextField" default-binding="true">
+                            <constraints border-constraint="West"/>
+                            <properties>
+                              <editable value="false"/>
+                              <text value="z"/>
+                            </properties>
+                          </component>
+                          <component id="2bbd5" class="javax.swing.JTextField" binding="rotationZDisplay">
+                            <constraints border-constraint="Center"/>
+                            <properties>
+                              <editable value="false"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </grid>
+                      <component id="4b026" class="javax.swing.JTextArea" binding="yTextArea" default-binding="true">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="y"/>
+                        </properties>
+                      </component>
+                      <component id="d4f4c" class="javax.swing.JTextField" binding="rotationYDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <component id="a5287" class="javax.swing.JTextArea" binding="TextArea">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <editable value="false"/>
+                  <text value="旋转"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="ef153" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="South"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="ff16c" class="javax.swing.JTextArea" binding="rotateTargetOffsetTitle">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <editable value="false"/>
+                  <text value="旋转手柄偏移"/>
+                </properties>
+              </component>
+              <grid id="ba587" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="2d8cc" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="71370" class="javax.swing.JTextArea" binding="offsetXTextArea">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="x"/>
+                        </properties>
+                      </component>
+                      <component id="eb459" class="javax.swing.JTextField" binding="offsetXDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="c19ca" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <grid id="bdab9" layout-manager="BorderLayout" hgap="0" vgap="0">
+                        <constraints border-constraint="South"/>
+                        <properties/>
+                        <border type="none"/>
+                        <children>
+                          <component id="5478" class="javax.swing.JTextArea" binding="offsetZTextArea">
+                            <constraints border-constraint="West"/>
+                            <properties>
+                              <editable value="false"/>
+                              <text value="z"/>
+                            </properties>
+                          </component>
+                          <component id="c5fbb" class="javax.swing.JTextField" binding="offsetZDisplay">
+                            <constraints border-constraint="Center"/>
+                            <properties>
+                              <editable value="false"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </grid>
+                      <component id="df0f3" class="javax.swing.JTextArea" binding="offsetYTextArea">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="y"/>
+                        </properties>
+                      </component>
+                      <component id="91622" class="javax.swing.JTextField" binding="offsetYDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="41091" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="South"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="f3c5c" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="North"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="8cd1c" class="javax.swing.JTextArea" binding="locationTextArea">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <editable value="false"/>
+                  <text value="旋转偏移前位置"/>
+                </properties>
+              </component>
+              <grid id="f682c" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="6295b" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="d0ba8" class="javax.swing.JTextArea" binding="locationXTitle">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="x"/>
+                        </properties>
+                      </component>
+                      <component id="569e8" class="javax.swing.JTextField" binding="locationXDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="4a868" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="43988" class="javax.swing.JTextArea" binding="locationYTitle">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="y"/>
+                        </properties>
+                      </component>
+                      <component id="4d62d" class="javax.swing.JTextField" binding="locationYDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="8ba36" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="South"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="924bc" class="javax.swing.JTextArea" binding="locationZTitle">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="z"/>
+                        </properties>
+                      </component>
+                      <component id="62b5b" class="javax.swing.JTextField" binding="locationZDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="6be3" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="South"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="91530" class="javax.swing.JTextArea" binding="rotationOffsets">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <editable value="false"/>
+                  <text value="旋转位置偏移"/>
+                </properties>
+              </component>
+              <grid id="3bb15" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="95400" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="4d4ac" class="javax.swing.JTextArea" binding="rotationOffsetsXTitle">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="x"/>
+                        </properties>
+                      </component>
+                      <component id="cdc41" class="javax.swing.JTextField" binding="rotationOffsetsXDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="eae68" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="4bf1a" class="javax.swing.JTextArea" binding="rotationOffsetsYTitle">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="y"/>
+                        </properties>
+                      </component>
+                      <component id="18441" class="javax.swing.JTextField" binding="rotationOffsetsYDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="4e0a4" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="South"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="a8b26" class="javax.swing.JTextArea" binding="rotationOffsetsZTitle">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <editable value="false"/>
+                          <text value="z"/>
+                        </properties>
+                      </component>
+                      <component id="c9697" class="javax.swing.JTextField" binding="rotationOffsetsZDisplay">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

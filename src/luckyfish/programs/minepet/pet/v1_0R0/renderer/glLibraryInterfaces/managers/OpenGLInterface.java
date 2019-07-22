@@ -2,6 +2,7 @@ package luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.manag
 
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initializers.GLInitializer;
 import luckyfish.programs.minepet.pet.v1_0R0.renderer.glLibraryInterfaces.initializers.Renderer;
+import luckyfish.programs.minepet.pet.v1_0R0.renderer.utils.Camera;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
 
@@ -18,6 +19,7 @@ public final class OpenGLInterface {
 	private final GLFWWindow window;
 	private final GLCapabilities glCapabilities;
 	private final Shader shader;
+	private final Camera camera = new Camera();
 
 	public OpenGLInterface(GLFWWindow window, GLInitializer glInitializer) throws Exception {
 		this.window = window;
@@ -74,15 +76,40 @@ public final class OpenGLInterface {
 		glActiveTexture(GL_TEXTURE0);
 	}
 
+	public void setBlendFunction(BlendFunctions srcFunction, BlendFunctions destFunction) {
+		setGlCapabilities();
+		glBlendFunc(srcFunction.getId(), destFunction.getId());
+	}
+
+	public Camera getCamera() {
+		return camera;
+	}
+
 	public enum EnableValues {
 		DEPTH_TEST(GL_DEPTH_TEST),
-		TEXTURE(GL_TEXTURE_2D);
+		TEXTURE(GL_TEXTURE_2D),
+		ALPHA(GL_ALPHA_TEST),
+		BLEND(GL_BLEND);
 
 		private final int id;
 		EnableValues(int id) {
 			this.id = id;
 		}
 
+		public int getId() {
+			return id;
+		}
+	}
+	public enum BlendFunctions {
+		ONE_MINUS_SRC_ALPHA(GL_ONE_MINUS_SRC_ALPHA),
+		SRC_ALPHA(GL_SRC_ALPHA),
+		ONE_MINUS_DST_ALPHA(GL_ONE_MINUS_DST_ALPHA);
+
+		private final int id;
+
+		BlendFunctions(int id) {
+			this.id = id;
+		}
 		public int getId() {
 			return id;
 		}
